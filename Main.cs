@@ -10,23 +10,37 @@ namespace RoomSense
 {
     public class Main : HugsLib.ModBase
     {
+
+        internal new ModLogger Logger => base.Logger;
+
+        internal static Main Instance { get; private set; }
+
+        public override string ModIdentifier => "RoomSense";
+
+        private SettingHandle<int> _opacity;
+
+        private SettingHandle<int> _updateDelay;
+
+        private GraphOverlay _graphOverlay = new GraphOverlay();
+
         public Main()
         {
             Instance = this;
         }
 
-        public void UpdateOverlay()
+        public void UpdateOverlays()
         {
+            _graphOverlay.Update(_updateDelay);
         }
 
         public override void OnGUI()
         {
-            if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
+            /*if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
                 || WorldRendererUtility.WorldRenderedNow)
             {
                 return;
             }
-
+            */
         }
 
         public override void WorldLoaded()
@@ -53,21 +67,5 @@ namespace RoomSense
         {
             return _opacity / 100f;
         }
-
-        public int GetUpdateDelay()
-        {
-
-            return _updateDelay;
-        }
-
-        internal new ModLogger Logger => base.Logger;
-
-        internal static Main Instance { get; private set; }
-
-        public override string ModIdentifier => "RoomSense";
-
-        private SettingHandle<int> _opacity;
-
-        private SettingHandle<int> _updateDelay;
     }
 }
