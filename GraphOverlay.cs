@@ -15,8 +15,8 @@ namespace RoomSense
             var map = Find.VisibleMap;
 
             var barLength = 10f;
-            var barHeight = 6f;
-            var iconWidth = 8f;
+            var barHeight = 8f;
+            var iconWidth = barHeight;
             var margin = 4f;
 
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
