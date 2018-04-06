@@ -23,6 +23,8 @@ namespace RoomSense
 
         private readonly InfoCollector _infoCollector = new InfoCollector();
 
+        private readonly GraphOverlay _graphOverlay = new GraphOverlay();
+
         public Main()
         {
             Instance = this;
@@ -41,7 +43,7 @@ namespace RoomSense
                 return;
             }
 
-            GraphOverlay.OnGUI(_infoCollector);
+            _graphOverlay.OnGUI(_infoCollector);
         }
 
         public override void WorldLoaded()
