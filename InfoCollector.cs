@@ -8,8 +8,9 @@ namespace RoomSense
 {
     public struct RoomStat
     {
-        public RoomStatDef Def;
-
+        public RoomStatDef StatDef;
+        public int CurrentLevel;
+        public int MaxLevel;
     }
 
     public class RoomInfo
@@ -46,10 +47,14 @@ namespace RoomSense
                 if (room == null)
                     continue;
 
-                var roomInfo = new RoomInfo
-                {
-                    PanelCellTopLeft = GetPanelTopLeftCornerForRoom(room)
-                };
+                if (RelevantRooms.ContainsKey(room))
+                    continue;
+
+                var roomInfo = new RoomInfo();
+                if (!ComputeRoomStats(room, roomInfo.Stats))
+                    continue;
+
+                roomInfo.PanelCellTopLeft = GetPanelTopLeftCornerForRoom(room, map);
 
                 RelevantRooms[room] = roomInfo;
             }
@@ -61,7 +66,31 @@ namespace RoomSense
             RelevantRooms.Clear();
         }
 
-        private IntVec3 GetPanelTopLeftCornerForRoom(Room room)
+        private bool ComputeRoomStats(Room room, List<RoomStat> stats)
+        {
+            foreach (var statDef in DefDatabase<RoomStatDef>.AllDefsListForReading)
+            {
+                if (statDef.isHidden)
+                    continue;
+
+                if (!room.Role.IsStatRelated(statDef))
+                    continue;
+
+                var stat = room.GetStat(statDef);
+                var roomStat = new RoomStat()
+                {
+                    StatDef = statDef,
+                    CurrentLevel = statDef.GetScoreStageIndex(stat),
+                    MaxLevel = statDef.scoreStages.Count
+                };
+
+                stats.Add(roomStat);
+            }
+
+            return stats.Count > 0;
+        }
+
+        private IntVec3 GetPanelTopLeftCornerForRoom(Room room, Map map)
         {
             var bestCell = room.BorderCells.First();
             foreach (var cell in room.BorderCells)
@@ -69,6 +98,12 @@ namespace RoomSense
                 if (cell.x < bestCell.x || cell.z > bestCell.z)
                     bestCell = cell;
             }
+
+            var possiblyBetterCell = bestCell;
+            possiblyBetterCell.x++;
+            possiblyBetterCell.z--;
+            if (possiblyBetterCell.GetRoom(map) == room)
+                bestCell = possiblyBetterCell;
 
             return bestCell;
         }
