@@ -25,9 +25,20 @@ namespace RoomSense
 
         public Dictionary<Room, RoomInfo> RelevantRooms { get; }
 
+        public int MaxStatCount { get; private set; }
+
+        public int MaxStatSize { get; private set; }
+
         public InfoCollector()
         {
             RelevantRooms = new Dictionary<Room, RoomInfo>();
+            MaxStatCount = 0;
+            MaxStatSize = 0;
+        }
+
+        public bool IsValid()
+        {
+            return MaxStatCount > 0 && MaxStatSize > 0 && RelevantRooms.Count > 0;
         }
 
         public void Update(int updateDelay)
@@ -84,8 +95,14 @@ namespace RoomSense
                     MaxLevel = statDef.scoreStages.Count
                 };
 
+                if (roomStat.MaxLevel > MaxStatSize)
+                    MaxStatSize = roomStat.MaxLevel;
+
                 stats.Add(roomStat);
             }
+
+            if (stats.Count > MaxStatCount)
+                MaxStatCount = stats.Count;
 
             return stats.Count > 0;
         }
