@@ -17,6 +17,7 @@ namespace RoomSense
     {
         public IntVec3 PanelCellTopLeft;
         public List<RoomStat> Stats = new List<RoomStat>();
+        public int MaxStatSize;
     };
 
     public class InfoCollector
@@ -64,6 +65,8 @@ namespace RoomSense
                 var roomInfo = new RoomInfo();
                 if (!ComputeRoomStats(room, roomInfo.Stats))
                     continue;
+
+                roomInfo.MaxStatSize = roomInfo.Stats.Max(s => s.MaxLevel);
 
                 roomInfo.PanelCellTopLeft = GetPanelTopLeftCornerForRoom(room, map);
 

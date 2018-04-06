@@ -13,15 +13,11 @@ namespace RoomSense
                 return;
 
             var map = Find.VisibleMap;
-            var cellSize = Find.CameraDriver.CellSizePixels;
-            var panelLength = cellSize * 3;
-            var panelHeight = cellSize * 2;
-            var margin = cellSize * .2f;
-            var iconWidth = cellSize * .25f;
 
-            var panelSize = new Vector2(panelLength, panelHeight);
-            var barHeight = (panelHeight - margin * (1 + infoCollector.MaxStatCount)) / infoCollector.MaxStatCount;
-            var barLength = (panelLength - margin * 3 - iconWidth) / infoCollector.MaxStatSize;
+            var barLength = 10f;
+            var barHeight = 6f;
+            var iconWidth = 8f;
+            var margin = 4f;
 
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
 
@@ -32,6 +28,11 @@ namespace RoomSense
 
                 if (map.fogGrid.IsFogged(roomInfo.PanelCellTopLeft))
                     continue;
+
+                var panelLength = barLength * roomInfo.MaxStatSize + margin * 3 + iconWidth;
+                var panelHeight = barHeight * roomInfo.Stats.Count + margin * (roomInfo.Stats.Count + 1);
+
+                var panelSize = new Vector2(panelLength, panelHeight);
 
                 var drawTopLeft = GenMapUI.LabelDrawPosFor(roomInfo.PanelCellTopLeft);
                 var panelRect = new Rect(drawTopLeft, panelSize);
