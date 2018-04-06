@@ -21,13 +21,13 @@ namespace RoomSense
                     maxPossibleLevel = statDef.scoreStages.Count;
             }
 
-            var delta = 1f / maxPossibleLevel;
-            var color = Color.red;
+            var delta = .4f / maxPossibleLevel;
+            var hue = 0f;
             for (var i = 0; i < maxPossibleLevel; i++)
             {
+                var color = Color.HSVToRGB(hue, 1f, 1f);
                 _barColorGradients.Add(color);
-                color.r -= delta;
-                color.g += delta;
+                hue += delta;
             }
         }
 
