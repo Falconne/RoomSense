@@ -66,7 +66,7 @@ namespace RoomSense
             var bestCell = room.BorderCells.First();
             foreach (var cell in room.BorderCells)
             {
-                if (cell.x < bestCell.x || cell.z < bestCell.z)
+                if (cell.x < bestCell.x || cell.z > bestCell.z)
                     bestCell = cell;
             }
 

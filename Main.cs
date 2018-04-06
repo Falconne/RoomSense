@@ -21,7 +21,7 @@ namespace RoomSense
 
         private SettingHandle<int> _updateDelay;
 
-        private readonly GraphOverlay _graphOverlay = new GraphOverlay();
+        private readonly InfoCollector _infoCollector = new InfoCollector();
 
         public Main()
         {
@@ -30,7 +30,7 @@ namespace RoomSense
 
         public void UpdateOverlays()
         {
-            //_graphOverlay.Update(_updateDelay);
+            _infoCollector.Update(_updateDelay);
         }
 
         public override void OnGUI()
@@ -41,12 +41,12 @@ namespace RoomSense
                 return;
             }
 
-            _graphOverlay.Update(_updateDelay);
+            GraphOverlay.OnGUI(_infoCollector);
         }
 
         public override void WorldLoaded()
         {
-            //Reset();
+            _infoCollector.Reset();
         }
 
         public override void DefsLoaded()
@@ -64,7 +64,7 @@ namespace RoomSense
 
         }
 
-        public float GetConfiguredOpacity()
+        private float GetConfiguredOpacity()
         {
             return _opacity / 100f;
         }
