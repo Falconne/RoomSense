@@ -23,8 +23,13 @@ namespace RoomSense
             var barHeight = (panelHeight - margin * (1 + infoCollector.MaxStatCount)) / infoCollector.MaxStatCount;
             var barLength = (panelLength - margin * 3 - iconWidth) / infoCollector.MaxStatSize;
 
+            CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
+
             foreach (var roomInfo in infoCollector.RelevantRooms.Values)
             {
+                if (!currentViewRect.Contains(roomInfo.PanelCellTopLeft))
+                    continue;
+
                 if (map.fogGrid.IsFogged(roomInfo.PanelCellTopLeft))
                     continue;
 
