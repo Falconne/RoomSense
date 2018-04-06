@@ -45,8 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InfoCollector.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="GraphOverlay.cs" />
+    <Compile Include="MapInterface_Detour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

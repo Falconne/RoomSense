@@ -21,7 +21,7 @@ namespace RoomSense
 
         private SettingHandle<int> _updateDelay;
 
-        private GraphOverlay _graphOverlay = new GraphOverlay();
+        private readonly GraphOverlay _graphOverlay = new GraphOverlay();
 
         public Main()
         {
@@ -30,17 +30,18 @@ namespace RoomSense
 
         public void UpdateOverlays()
         {
-            _graphOverlay.Update(_updateDelay);
+            //_graphOverlay.Update(_updateDelay);
         }
 
         public override void OnGUI()
         {
-            /*if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
+            if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
                 || WorldRendererUtility.WorldRenderedNow)
             {
                 return;
             }
-            */
+
+            _graphOverlay.Update(_updateDelay);
         }
 
         public override void WorldLoaded()
