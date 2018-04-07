@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -7,6 +8,31 @@ namespace RoomSense
 {
     public class GraphOverlay
     {
+        private readonly Dictionary<RoomStatDef, Texture2D> _statToIconMap = 
+            new Dictionary<RoomStatDef, Texture2D>();
+
+        //public readonly Dictionary<RoomStatDef, string> _statToTextMap =
+        //    new Dictionary<RoomStatDef, string>();
+
+        public GraphOverlay()
+        {
+            _statToIconMap[RoomStatDefOf.Impressiveness] = Resources.IconImpressiveness;
+            _statToIconMap[RoomStatDefOf.Wealth] = Resources.IconWealth;
+            _statToIconMap[RoomStatDefOf.Space] = Resources.IconSpace;
+            _statToIconMap[RoomStatDefOf.Beauty] = Resources.IconBeauty;
+            _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.IconCleanliness;
+
+            /*_statToTextMap[RoomStatDefOf.Impressiveness] = "*";
+            _statToTextMap[RoomStatDefOf.Wealth] = "$";
+            foreach (var statDef in DefDatabase<RoomStatDef>.AllDefsListForReading)
+            {
+                if (_statToTextMap.ContainsKey(statDef))
+                    continue;
+
+                _statToTextMap[statDef] = statDef.LabelCap.First().ToString();
+            }*/
+        }
+
         public void OnGUI(InfoCollector infoCollector)
         {
             if (!infoCollector.IsValid())
@@ -16,7 +42,7 @@ namespace RoomSense
 
             var barLength = 10f;
             var barHeight = 8f;
-            var iconWidth = barHeight;
+            var iconSize = barHeight;
             var margin = 4f;
 
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
@@ -29,7 +55,7 @@ namespace RoomSense
                 if (map.fogGrid.IsFogged(roomInfo.PanelCellTopLeft))
                     continue;
 
-                var panelLength = barLength * roomInfo.MaxStatSize + margin * 3 + iconWidth;
+                var panelLength = barLength * roomInfo.MaxStatSize + margin * 3 + iconSize;
                 var panelHeight = barHeight * roomInfo.Stats.Count + margin * (roomInfo.Stats.Count + 1);
 
                 var panelSize = new Vector2(panelLength, panelHeight);
@@ -38,11 +64,20 @@ namespace RoomSense
                 var panelRect = new Rect(drawTopLeft, panelSize);
                 Widgets.DrawBoxSolid(panelRect, Color.black);
                 Widgets.DrawBox(panelRect);
+                Text.Font = GameFont.Small;
 
-
+                var iconRectLeft = drawTopLeft.x + margin;
                 var meterDrawY = drawTopLeft.y + margin;
                 foreach (var infoStat in roomInfo.Stats)
                 {
+                    if (_statToIconMap.TryGetValue(infoStat.StatDef, out Texture2D icon))
+                    {
+                        var iconRect = new Rect(iconRectLeft, meterDrawY, iconSize, iconSize);
+                        GUI.color = Color.white;
+                        //Widgets.Label(iconRect, _statToTextMap[infoStat.StatDef]);
+                        GUI.DrawTexture(iconRect, icon);
+                    }
+
                     var currentLevelFraction = (infoStat.CurrentLevel + 1f) / infoStat.MaxLevel;
                     var barColor = Color.green;
                     if (currentLevelFraction < .66f)
@@ -50,7 +85,7 @@ namespace RoomSense
                     if (currentLevelFraction < .33)
                         barColor = Color.red;
 
-                    var meterDrawX = drawTopLeft.x + margin * 2 + iconWidth;
+                    var meterDrawX = drawTopLeft.x + margin * 2 + iconSize;
                     for (var i = 0; i < infoStat.MaxLevel; i++, meterDrawX += barLength)
                     {
                         var barRect = new Rect(meterDrawX, meterDrawY, barLength, barHeight);

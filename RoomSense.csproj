@@ -20,6 +20,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="%24HugsLibChecker, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -50,6 +51,7 @@
     <Compile Include="GraphOverlay.cs" />
     <Compile Include="MapInterface_Detour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -58,6 +60,11 @@
     <Content Include="dist\RoomSense\About\About.xml" />
     <Content Include="dist\RoomSense\About\Version.xml" />
     <Content Include="dist\RoomSense\Languages\English\Keyed\FALCRS_LanguageData.xml" />
+    <Content Include="dist\RoomSense\Textures\Beauty.png" />
+    <Content Include="dist\RoomSense\Textures\Cleanliness.png" />
+    <Content Include="dist\RoomSense\Textures\Impressiveness.png" />
+    <Content Include="dist\RoomSense\Textures\Space.png" />
+    <Content Include="dist\RoomSense\Textures\Wealth.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
