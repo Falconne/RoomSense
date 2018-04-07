@@ -11,6 +11,9 @@ namespace RoomSense
         public RoomStatDef StatDef;
         public int CurrentLevel;
         public int MaxLevel;
+
+        public string RawCurrentLevel;
+        public string ValueLabel;
     }
 
     public class RoomInfo
@@ -101,11 +104,14 @@ namespace RoomSense
                     continue;
 
                 var stat = room.GetStat(statDef);
+                RoomStatScoreStage scoreStage = statDef.GetScoreStage(stat);
                 var roomStat = new RoomStat()
                 {
                     StatDef = statDef,
                     CurrentLevel = statDef.GetScoreStageIndex(stat),
-                    MaxLevel = statDef.scoreStages.Count
+                    MaxLevel = statDef.scoreStages.Count,
+                    RawCurrentLevel = statDef.ScoreToString(stat),
+                    ValueLabel = scoreStage != null ? scoreStage.label : string.Empty
                 };
 
                 if (roomStat.MaxLevel > MaxStatSize)

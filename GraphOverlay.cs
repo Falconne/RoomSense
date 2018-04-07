@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -57,6 +58,7 @@ namespace RoomSense
 
                 var iconRectLeft = drawTopLeft.x + margin;
                 var meterDrawY = drawTopLeft.y + margin;
+                var tooltip = new StringBuilder();
                 foreach (var infoStat in roomInfo.Stats)
                 {
                     if (_statToIconMap.TryGetValue(infoStat.StatDef, out Texture2D icon))
@@ -84,7 +86,12 @@ namespace RoomSense
                     }
 
                     meterDrawY += barHeight + margin;
+
+                    tooltip.Append($"{infoStat.StatDef.LabelCap}: {infoStat.RawCurrentLevel} ({infoStat.ValueLabel})");
+                    tooltip.AppendLine();
                 }
+
+                TooltipHandler.TipRegion(panelRect, tooltip.ToString());
             }
         }
     }
