@@ -15,9 +15,16 @@ namespace RoomSense
 
     public class RoomInfo
     {
-        public IntVec3 PanelCellTopLeft;
-        public List<RoomStat> Stats = new List<RoomStat>();
-        public int MaxStatSize;
+        public readonly List<RoomStat> Stats;
+        public readonly IntVec3 PanelCellTopLeft;
+        public readonly int MaxStatSize;
+
+        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize)
+        {
+            Stats = stats;
+            PanelCellTopLeft = panelCellTopLeft;
+            MaxStatSize = maxStatSize;
+        }
     };
 
     public class InfoCollector
@@ -62,13 +69,15 @@ namespace RoomSense
                 if (RelevantRooms.ContainsKey(room))
                     continue;
 
-                var roomInfo = new RoomInfo();
-                if (!ComputeRoomStats(room, roomInfo.Stats))
+                var stats = GetRoomStats(room);
+                if (stats.Count == 0)
                     continue;
 
-                roomInfo.MaxStatSize = roomInfo.Stats.Max(s => s.MaxLevel);
-
-                roomInfo.PanelCellTopLeft = GetPanelTopLeftCornerForRoom(room, map);
+                var roomInfo = new RoomInfo(
+                    stats,
+                    GetPanelTopLeftCornerForRoom(room, map),
+                    stats.Max(s => s.MaxLevel)
+                );
 
                 RelevantRooms[room] = roomInfo;
             }
@@ -80,8 +89,9 @@ namespace RoomSense
             RelevantRooms.Clear();
         }
 
-        private bool ComputeRoomStats(Room room, List<RoomStat> stats)
+        private List<RoomStat> GetRoomStats(Room room)
         {
+            var stats = new List<RoomStat>();
             foreach (var statDef in DefDatabase<RoomStatDef>.AllDefsListForReading)
             {
                 if (statDef.isHidden)
@@ -107,7 +117,7 @@ namespace RoomSense
             if (stats.Count > MaxStatCount)
                 MaxStatCount = stats.Count;
 
-            return stats.Count > 0;
+            return stats;
         }
 
         private IntVec3 GetPanelTopLeftCornerForRoom(Room room, Map map)
