@@ -127,7 +127,7 @@ namespace RoomSense
                 }
 
                 var tooltip = new StringBuilder();
-                tooltip.Append(roomInfo.Role);
+                tooltip.Append(roomInfo.Role.LabelCap);
                 tooltip.AppendLine();
                 tooltip.AppendLine();
                 foreach (var row in tooltipRows)

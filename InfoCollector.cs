@@ -6,7 +6,7 @@ using Verse;
 
 namespace RoomSense
 {
-    public struct RoomStat
+    public class RoomStat
     {
         public RoomStatDef StatDef;
         public int CurrentLevel;
@@ -21,14 +21,43 @@ namespace RoomSense
         public readonly List<RoomStat> Stats;
         public readonly IntVec3 PanelCellTopLeft;
         public readonly int MaxStatSize;
-        public readonly string Role;
+        public readonly RoomRoleDef Role;
 
-        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, string role)
+        private RoomStat _primaryStat = null;
+
+        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, RoomRoleDef role)
         {
             Stats = stats;
             PanelCellTopLeft = panelCellTopLeft;
             MaxStatSize = maxStatSize;
             Role = role;
+        }
+
+        public RoomStat GetPrimaryStat()
+        {
+            if (_primaryStat != null)
+                return _primaryStat;
+
+            if (Stats.Count == 1)
+            {
+                _primaryStat = Stats.First();
+                return _primaryStat;
+            }
+
+            _primaryStat = Stats.FirstOrDefault(s => s.StatDef == RoomStatDefOf.Impressiveness);
+            if (_primaryStat != null)
+                return _primaryStat;
+
+            // No obvious primary stat.
+            // Create an average of the stats to serve as primary, with a resolution of 12.
+            var averageOfStatFractions = Stats.Average(s => (float) s.CurrentLevel / s.MaxLevel);
+            _primaryStat = new RoomStat()
+            {
+                CurrentLevel = (int) averageOfStatFractions * 12,
+                MaxLevel = 12
+            };
+
+            return _primaryStat;
         }
     };
 
@@ -96,7 +125,7 @@ namespace RoomSense
                     stats,
                     GetPanelTopLeftCornerForRoom(room, map),
                     stats.Max(s => s.MaxLevel),
-                    room.Role.LabelCap
+                    room.Role
                 );
 
                 RelevantRooms[room] = roomInfo;

@@ -83,7 +83,9 @@ namespace RoomSense
             if (!_infoCollector.RelevantRooms.TryGetValue(room, out RoomInfo roomInfo))
                 return false;
 
-            var primaryStat = roomInfo.Stats.First();
+            var primaryStat = roomInfo.GetPrimaryStat();
+            if (primaryStat == null)
+                return false;
 
             var stageColorIndexScaler = _stageIndexToColorMap.Count / (float)primaryStat.MaxLevel;
             var stageColorIndex = (int)(primaryStat.CurrentLevel * stageColorIndexScaler);
@@ -105,7 +107,6 @@ namespace RoomSense
         public void Update()
         {
             Drawer.MarkForDraw();
-            var tick = Find.TickManager.TicksGame;
             if (_infoCollector.IsTimeToUpdateHeatMap())
             {
                 Drawer.SetDirty();
