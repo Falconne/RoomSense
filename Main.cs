@@ -17,11 +17,15 @@ namespace RoomSense
 
         public override string ModIdentifier => "RoomSense";
 
-        public bool ShowOverlay = true;
+        public bool ShowOverlay = false;
 
         private SettingHandle<int> _graphOpacity;
 
         private SettingHandle<int> _heatMapOpacity;
+
+        private SettingHandle<bool> _showStatMeters;
+
+        private SettingHandle<bool> _showHeatMap;
 
         private float _graphOpacityAsFloat;
 
@@ -42,13 +46,17 @@ namespace RoomSense
 
         public void UpdateOverlays()
         {
-            if (!ShowOverlay)
+            if (!ShowOverlay || (!_showStatMeters && !_showHeatMap))
             {
                 _infoCollector.Reset();
                 _heatMap?.Reset();
                 return;
             }
+
             _infoCollector.Update(_updateDelay);
+            if (!_showHeatMap)
+                return;
+
             if (_heatMap == null)
                 _heatMap = new HeatMap(_infoCollector);
             _heatMap.Update();
@@ -65,6 +73,9 @@ namespace RoomSense
                 return;
             }
 
+            if (!_showStatMeters)
+                return;
+
             if (_firstRun)
             {
                 _firstRun = false;
@@ -80,24 +91,33 @@ namespace RoomSense
 
         public override void DefsLoaded()
         {
+            _showStatMeters = Settings.GetHandle(
+                "showStatMeters", "FALCRS.ShowStatMeters".Translate(),
+                "FALCRS.ShowStatMetersDesc".Translate(), true);
+
+            _showHeatMap = Settings.GetHandle(
+                "showRSHeatMap", "FALCRS.ShowHeatMap".Translate(),
+                "FALCRS.ShowHeatMapDesc".Translate(), true);
+
             _graphOpacity = Settings.GetHandle(
                 "graphOpacity", "FALCRS.GraphOpacity".Translate(),
                 "FALCRS.GraphOpacityDesc".Translate(), 100,
                 Validators.IntRangeValidator(1, 100));
 
-            _graphOpacity.OnValueChanged = val => { _graphOpacityAsFloat = _graphOpacity / 100f; };
+            _graphOpacity.OnValueChanged = val => _graphOpacityAsFloat = _graphOpacity / 100f;
 
             _heatMapOpacity = Settings.GetHandle(
                 "rsHeatMapOpacity", "FALCRS.HeatMapOpacity".Translate(),
-                "FALCRS.HeatMapOpacityDesc".Translate(), 33,
+                "FALCRS.HeatMapOpacityDesc".Translate(), 44,
                 Validators.IntRangeValidator(1, 100));
 
+            _heatMapOpacity.OnValueChanged = val => _heatMap.Reset();
 
             _updateDelay = Settings.GetHandle("updateDelay", "FALCRS.UpdateDelay".Translate(),
                 "FALCRS.UpdateDelayDesc".Translate(),
                 100, Validators.IntRangeValidator(1, 9999));
 
-            _updateDelay.OnValueChanged = val => { _infoCollector.Reset(); };
+            _updateDelay.OnValueChanged = val => _infoCollector.Reset();
         }
 
         public float GetHeatMapOpacity()
