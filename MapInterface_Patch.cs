@@ -6,7 +6,7 @@ using Verse;
 namespace RoomSense
 {
     [HarmonyPatch(typeof(MapInterface), "MapInterfaceUpdate")]
-    public static class MapInterface_Detour
+    public static class MapInterface_Patch
     {
         [HarmonyPostfix]
         static void Postfix()
