@@ -3,6 +3,9 @@
     <FALCRS.GraphOpacity>Stat levels opacity</FALCRS.GraphOpacity>
     <FALCRS.GraphOpacityDesc>Opacity of stat meters over rooms</FALCRS.GraphOpacityDesc>
     
+    <FALCRS.HeatMapOpacity>Stat heat map opacity</FALCRS.HeatMapOpacity>
+    <FALCRS.HeatMapOpacityDesc>Opacity of primary stat heat map, when enabled</FALCRS.HeatMapOpacityDesc>
+    
     <FALCRS.UpdateDelay>Update delay</FALCRS.UpdateDelay>
     <FALCRS.UpdateDelayDesc>Number of game ticks between stat updates</FALCRS.UpdateDelayDesc>
 

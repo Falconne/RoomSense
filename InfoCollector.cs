@@ -40,6 +40,8 @@ namespace RoomSense
 
         public int MaxStatSize { get; private set; }
 
+        private bool _infoChanged = false;
+
         public InfoCollector()
         {
             RelevantRooms = new Dictionary<Room, RoomInfo>();
@@ -52,6 +54,16 @@ namespace RoomSense
             return MaxStatCount > 0 && MaxStatSize > 0 && RelevantRooms.Count > 0;
         }
 
+        public bool IsTimeToUpdateHeatMap()
+        {
+            if (!_infoChanged)
+                return false;
+
+            _infoChanged = false;
+            return true;
+
+        }
+
         public void Update(int updateDelay)
         {
             var tick = Find.TickManager.TicksGame;
@@ -59,6 +71,8 @@ namespace RoomSense
                 return;
 
             _nextUpdateTick = tick + updateDelay;
+            _infoChanged = true;
+            RelevantRooms.Clear();
 
             var map = Find.VisibleMap;
             var listerBuildings = map.listerBuildings;

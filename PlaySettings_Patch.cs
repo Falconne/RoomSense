@@ -12,7 +12,7 @@ namespace RoomSense
             if (worldView)
                 return;
 
-            row?.ToggleableIcon(ref Main.Instance.ShowGraphOverlay, Resources.GraphToggle,
+            row?.ToggleableIcon(ref Main.Instance.ShowOverlay, Resources.GraphToggle,
                 "FALCRS.GraphToggle".Translate(), SoundDefOf.MouseoverToggle);
         }
     }
