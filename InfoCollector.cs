@@ -21,12 +21,14 @@ namespace RoomSense
         public readonly List<RoomStat> Stats;
         public readonly IntVec3 PanelCellTopLeft;
         public readonly int MaxStatSize;
+        public readonly string Role;
 
-        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize)
+        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, string role)
         {
             Stats = stats;
             PanelCellTopLeft = panelCellTopLeft;
             MaxStatSize = maxStatSize;
+            Role = role;
         }
     };
 
@@ -93,7 +95,8 @@ namespace RoomSense
                 var roomInfo = new RoomInfo(
                     stats,
                     GetPanelTopLeftCornerForRoom(room, map),
-                    stats.Max(s => s.MaxLevel)
+                    stats.Max(s => s.MaxLevel),
+                    room.Role.LabelCap
                 );
 
                 RelevantRooms[room] = roomInfo;

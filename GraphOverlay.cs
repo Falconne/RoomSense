@@ -127,6 +127,9 @@ namespace RoomSense
                 }
 
                 var tooltip = new StringBuilder();
+                tooltip.Append(roomInfo.Role);
+                tooltip.AppendLine();
+                tooltip.AppendLine();
                 foreach (var row in tooltipRows)
                 {
                     tooltip.Append($"{row.Columns[0]}: {row.Columns[1]}  {row.Columns[2]}");
