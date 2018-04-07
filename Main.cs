@@ -17,7 +17,11 @@ namespace RoomSense
 
         public override string ModIdentifier => "RoomSense";
 
-        private SettingHandle<int> _opacity;
+        private SettingHandle<int> _graphOpacity;
+
+        private float _graphOpacityAsFloat;
+
+        private bool firstRun = true;
 
         private SettingHandle<int> _updateDelay;
 
@@ -43,7 +47,12 @@ namespace RoomSense
                 return;
             }
 
-            _graphOverlay.OnGUI(_infoCollector);
+            if (firstRun)
+            {
+                firstRun = false;
+                _graphOpacityAsFloat = _graphOpacity / 100f;
+            }
+            _graphOverlay.OnGUI(_infoCollector, _graphOpacityAsFloat);
         }
 
         public override void WorldLoaded()
@@ -53,22 +62,17 @@ namespace RoomSense
 
         public override void DefsLoaded()
         {
-            _opacity = Settings.GetHandle(
-                "opacity", "FALCHM.OverlayOpacity".Translate(),
-                "FALCHM.OverlayOpacityDesc".Translate(), 30,
+            _graphOpacity = Settings.GetHandle(
+                "graphOpacity", "FALCRS.GraphOpacity".Translate(),
+                "FALCRS.GraphOpacityDesc".Translate(), 100,
                 Validators.IntRangeValidator(1, 100));
 
-            // _opacity.OnValueChanged = val => { Reset(); };
+            _graphOpacity.OnValueChanged = val => { _graphOpacityAsFloat = _graphOpacity / 100f; };
 
             _updateDelay = Settings.GetHandle("updateDelay", "FALCRS.UpdateDelay".Translate(),
                 "FALCRS.UpdateDelayDesc".Translate(),
                 100, Validators.IntRangeValidator(1, 9999));
 
-        }
-
-        private float GetConfiguredOpacity()
-        {
-            return _opacity / 100f;
         }
     }
 }

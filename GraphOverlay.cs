@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -20,7 +21,7 @@ namespace RoomSense
             _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.IconCleanliness;
         }
 
-        public void OnGUI(InfoCollector infoCollector)
+        public void OnGUI(InfoCollector infoCollector, float opacity)
         {
             if (!infoCollector.IsValid())
                 return;
@@ -49,7 +50,9 @@ namespace RoomSense
 
                 var drawTopLeft = GenMapUI.LabelDrawPosFor(roomInfo.PanelCellTopLeft);
                 var panelRect = new Rect(drawTopLeft, panelSize);
-                Widgets.DrawBoxSolid(panelRect, Color.black);
+                var panelColor = Color.black;
+                panelColor.a = opacity;
+                Widgets.DrawBoxSolid(panelRect, panelColor);
                 Widgets.DrawBox(panelRect);
                 Text.Font = GameFont.Small;
 
@@ -60,7 +63,6 @@ namespace RoomSense
                     if (_statToIconMap.TryGetValue(infoStat.StatDef, out Texture2D icon))
                     {
                         var iconRect = new Rect(iconRectLeft, meterDrawY, iconSize, iconSize);
-                        GUI.color = Color.white;
                         GUI.DrawTexture(iconRect, icon);
                     }
 
@@ -70,6 +72,8 @@ namespace RoomSense
                         barColor = Color.yellow;
                     if (currentLevelFraction < .33)
                         barColor = Color.red;
+
+                    barColor.a = opacity;
 
                     var meterDrawX = drawTopLeft.x + margin * 2 + iconSize;
                     for (var i = 0; i < infoStat.MaxLevel; i++, meterDrawX += barLength)

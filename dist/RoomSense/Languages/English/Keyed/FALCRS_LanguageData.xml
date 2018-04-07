@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
+    <FALCRS.GraphOpacity>Stat levels opacity</FALCRS.GraphOpacity>
+    <FALCRS.GraphOpacityDesc>Opacity of stat meters over rooms</FALCRS.GraphOpacityDesc>
+    
+    <FALCRS.UpdateDelay>Update delay</FALCRS.UpdateDelay>
+    <FALCRS.UpdateDelayDesc>Number of game ticks between stat updates</FALCRS.UpdateDelayDesc>
 </LanguageData>
