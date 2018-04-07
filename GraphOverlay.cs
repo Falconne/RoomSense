@@ -54,7 +54,6 @@ namespace RoomSense
                 panelColor.a = opacity;
                 Widgets.DrawBoxSolid(panelRect, panelColor);
                 Widgets.DrawBox(panelRect);
-                Text.Font = GameFont.Small;
 
                 var iconRectLeft = drawTopLeft.x + margin;
                 var meterDrawY = drawTopLeft.y + margin;
