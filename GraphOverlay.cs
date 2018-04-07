@@ -11,9 +11,6 @@ namespace RoomSense
         private readonly Dictionary<RoomStatDef, Texture2D> _statToIconMap = 
             new Dictionary<RoomStatDef, Texture2D>();
 
-        //public readonly Dictionary<RoomStatDef, string> _statToTextMap =
-        //    new Dictionary<RoomStatDef, string>();
-
         public GraphOverlay()
         {
             _statToIconMap[RoomStatDefOf.Impressiveness] = Resources.IconImpressiveness;
@@ -21,16 +18,6 @@ namespace RoomSense
             _statToIconMap[RoomStatDefOf.Space] = Resources.IconSpace;
             _statToIconMap[RoomStatDefOf.Beauty] = Resources.IconBeauty;
             _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.IconCleanliness;
-
-            /*_statToTextMap[RoomStatDefOf.Impressiveness] = "*";
-            _statToTextMap[RoomStatDefOf.Wealth] = "$";
-            foreach (var statDef in DefDatabase<RoomStatDef>.AllDefsListForReading)
-            {
-                if (_statToTextMap.ContainsKey(statDef))
-                    continue;
-
-                _statToTextMap[statDef] = statDef.LabelCap.First().ToString();
-            }*/
         }
 
         public void OnGUI(InfoCollector infoCollector)
@@ -74,7 +61,6 @@ namespace RoomSense
                     {
                         var iconRect = new Rect(iconRectLeft, meterDrawY, iconSize, iconSize);
                         GUI.color = Color.white;
-                        //Widgets.Label(iconRect, _statToTextMap[infoStat.StatDef]);
                         GUI.DrawTexture(iconRect, icon);
                     }
 
