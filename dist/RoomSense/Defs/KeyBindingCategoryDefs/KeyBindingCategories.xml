@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+	<KeyBindingCategoryDef>
+		<defName>RoomSense</defName>
+		<label>Room Sense</label>
+		<description>Shortcuts for the Room Sense mod.</description>
+	</KeyBindingCategoryDef>
+</Defs>

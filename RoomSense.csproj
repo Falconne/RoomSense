@@ -61,6 +61,8 @@
   <ItemGroup>
     <Content Include="dist\RoomSense\About\About.xml" />
     <Content Include="dist\RoomSense\About\Version.xml" />
+    <Content Include="dist\RoomSense\Defs\KeyBindingCategoryDefs\KeyBindingCategories.xml" />
+    <Content Include="dist\RoomSense\Defs\KeyBindings.xml" />
     <Content Include="dist\RoomSense\Languages\English\Keyed\FALCRS_LanguageData.xml" />
     <Content Include="dist\RoomSense\Textures\Beauty.png" />
     <Content Include="dist\RoomSense\Textures\Cleanliness.png" />

@@ -8,6 +8,12 @@ using Verse;
 
 namespace RoomSense
 {
+    [DefOf]
+    public static class RoomSenseKeyBingings
+    {
+        public static KeyBindingDef ToggleRoomSenseOverlay;
+    }
+
     public class Main : HugsLib.ModBase
     {
 
@@ -64,14 +70,28 @@ namespace RoomSense
 
         public override void OnGUI()
         {
-            if (!ShowOverlay)
-                return;
-
             if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
                 || WorldRendererUtility.WorldRenderedNow)
             {
                 return;
             }
+
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode != KeyCode.None)
+            {
+
+                if (RoomSenseKeyBingings.ToggleRoomSenseOverlay.JustPressed)
+                {
+                    if (WorldRendererUtility.WorldRenderedNow)
+                    {
+                        return;
+                    }
+
+                    ShowOverlay = !ShowOverlay;
+                }
+            }
+
+            if (!ShowOverlay)
+                return;
 
             if (!_showStatMeters)
                 return;

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Defs>
+
+	<KeyBindingDef>
+		<category>RoomSense</category>
+		<defName>ToggleRoomSenseOverlay</defName>
+		<label>Toggle Room Sense stats overlay</label>
+        <defaultKeyCodeA>Equals</defaultKeyCodeA>
+	</KeyBindingDef>
+</Defs>
