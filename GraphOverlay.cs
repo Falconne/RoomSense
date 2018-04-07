@@ -10,8 +10,13 @@ namespace RoomSense
 {
     public class GraphOverlay
     {
-        private readonly Dictionary<RoomStatDef, Texture2D> _statToIconMap = 
+        private readonly Dictionary<RoomStatDef, Texture2D> _statToIconMap =
             new Dictionary<RoomStatDef, Texture2D>();
+
+        private class InfoRow
+        {
+            public readonly string[] Columns = new string[3];
+        }
 
         public GraphOverlay()
         {
@@ -29,10 +34,10 @@ namespace RoomSense
 
             var map = Find.VisibleMap;
 
-            var barLength = 10f;
-            var barHeight = 8f;
-            var iconSize = barHeight;
-            var margin = 4f;
+            const float barLength = 10f;
+            const float barHeight = 8f;
+            const float iconSize = barHeight;
+            const float margin = 4f;
 
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
 
@@ -58,7 +63,8 @@ namespace RoomSense
 
                 var iconRectLeft = drawTopLeft.x + margin;
                 var meterDrawY = drawTopLeft.y + margin;
-                var tooltip = new StringBuilder();
+                var tooltipRows = new List<InfoRow>();
+                var showTooltip = !Find.PlaySettings.showEnvironment;
                 foreach (var infoStat in roomInfo.Stats)
                 {
                     if (_statToIconMap.TryGetValue(infoStat.StatDef, out Texture2D icon))
@@ -87,7 +93,43 @@ namespace RoomSense
 
                     meterDrawY += barHeight + margin;
 
-                    tooltip.Append($"{infoStat.StatDef.LabelCap}: {infoStat.RawCurrentLevel} ({infoStat.ValueLabel})");
+                    if (showTooltip)
+                    {
+                        tooltipRows.Add
+                        (
+                            new InfoRow
+                            {
+                                Columns =
+                                {
+                                    [0] = infoStat.StatDef.LabelCap,
+                                    [1] = infoStat.RawCurrentLevel,
+                                    [2] = infoStat.ValueLabel
+                                }
+                            }
+                         );
+                    }
+                }
+
+                if (!showTooltip)
+                    continue;
+
+                for (var i = 0; i < 2; i++)
+                {
+                    var maxWidth = tooltipRows.Max(row => Text.CalcSize(row.Columns[i]).x);
+                    foreach (var row in tooltipRows)
+                    {
+                        ref var value = ref row.Columns[i];
+                        while (maxWidth - Text.CalcSize(value).x > 0.5)
+                        {
+                            value += " ";
+                        }
+                    }
+                }
+
+                var tooltip = new StringBuilder();
+                foreach (var row in tooltipRows)
+                {
+                    tooltip.Append($"{row.Columns[0]}: {row.Columns[1]}  {row.Columns[2]}");
                     tooltip.AppendLine();
                 }
 
