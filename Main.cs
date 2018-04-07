@@ -17,6 +17,8 @@ namespace RoomSense
 
         public override string ModIdentifier => "RoomSense";
 
+        public bool ShowGraphOverlay = true;
+
         private SettingHandle<int> _graphOpacity;
 
         private float _graphOpacityAsFloat;
@@ -36,11 +38,19 @@ namespace RoomSense
 
         public void UpdateOverlays()
         {
+            if (!ShowGraphOverlay)
+            {
+                _infoCollector.Reset();
+                return;
+            }
             _infoCollector.Update(_updateDelay);
         }
 
         public override void OnGUI()
         {
+            if (!ShowGraphOverlay)
+                return;
+
             if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
                 || WorldRendererUtility.WorldRenderedNow)
             {
@@ -73,6 +83,7 @@ namespace RoomSense
                 "FALCRS.UpdateDelayDesc".Translate(),
                 100, Validators.IntRangeValidator(1, 9999));
 
+            _updateDelay.OnValueChanged = val => { _infoCollector.Reset(); };
         }
     }
 }

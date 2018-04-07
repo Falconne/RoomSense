@@ -14,11 +14,11 @@ namespace RoomSense
 
         public GraphOverlay()
         {
-            _statToIconMap[RoomStatDefOf.Impressiveness] = Resources.IconImpressiveness;
-            _statToIconMap[RoomStatDefOf.Wealth] = Resources.IconWealth;
-            _statToIconMap[RoomStatDefOf.Space] = Resources.IconSpace;
-            _statToIconMap[RoomStatDefOf.Beauty] = Resources.IconBeauty;
-            _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.IconCleanliness;
+            _statToIconMap[RoomStatDefOf.Impressiveness] = Resources.Impressiveness;
+            _statToIconMap[RoomStatDefOf.Wealth] = Resources.Wealth;
+            _statToIconMap[RoomStatDefOf.Space] = Resources.Space;
+            _statToIconMap[RoomStatDefOf.Beauty] = Resources.Beauty;
+            _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.Cleanliness;
         }
 
         public void OnGUI(InfoCollector infoCollector, float opacity)

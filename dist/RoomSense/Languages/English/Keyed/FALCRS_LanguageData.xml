@@ -5,4 +5,6 @@
     
     <FALCRS.UpdateDelay>Update delay</FALCRS.UpdateDelay>
     <FALCRS.UpdateDelayDesc>Number of game ticks between stat updates</FALCRS.UpdateDelayDesc>
+
+    <FALCRS.GraphToggle>Toggle room stat meters</FALCRS.GraphToggle>
 </LanguageData>
