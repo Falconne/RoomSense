@@ -9,11 +9,11 @@
     <FALCRS.UpdateDelay>Update delay</FALCRS.UpdateDelay>
     <FALCRS.UpdateDelayDesc>Number of game ticks between stat updates</FALCRS.UpdateDelayDesc>
 
-    <FALCRS.GraphToggle>Toggle room stat meters</FALCRS.GraphToggle>
+    <FALCRS.GraphToggle>Toggle room stat meter panels and overlay</FALCRS.GraphToggle>
 
     <FALCRS.ShowStatMeters>Show stat meters</FALCRS.ShowStatMeters>
-    <FALCRS.ShowStatMetersDesc>Display stat meters when overlay is enabled</FALCRS.ShowStatMetersDesc>
+    <FALCRS.ShowStatMetersDesc>Show stat meter panels, when tool is enabled</FALCRS.ShowStatMetersDesc>
 
     <FALCRS.ShowHeatMap>Show stat heat map</FALCRS.ShowHeatMap>
-    <FALCRS.ShowHeatMapDesc>Show heat map overlay based on primary stat over rooms</FALCRS.ShowHeatMapDesc>
+    <FALCRS.ShowHeatMapDesc>Show coloured heat map overlay based on primary stat, when tool is enabled</FALCRS.ShowHeatMapDesc>
 </LanguageData>

@@ -2,6 +2,6 @@
 <ModMetaData>
   <name>Room Sense</name>
   <author>Falconne</author>
-  <description>Adds a togglabale map overlay to show relevant room stats, such as beauty, cleanliness, etc, over appropriate rooms.</description>
+  <description>Togglabale panels to show relevant room stats, such as beauty, cleanliness, etc, over appropriate rooms using graphical meters and optionally a coloured overlay.</description>
   <targetVersion>0.18.1722</targetVersion>
 </ModMetaData>

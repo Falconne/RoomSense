@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dist\RoomSense\About\About.xml" />
+    <Content Include="dist\RoomSense\About\Preview.png" />
     <Content Include="dist\RoomSense\About\Version.xml" />
     <Content Include="dist\RoomSense\Defs\KeyBindingCategoryDefs\KeyBindingCategories.xml" />
     <Content Include="dist\RoomSense\Defs\KeyBindings.xml" />
