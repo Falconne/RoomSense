@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using RimWorld;
 using UnityEngine;
@@ -53,7 +52,7 @@ namespace RoomSense
                 var panelLength = barLength * roomInfo.MaxStatSize + margin * 3 + iconSize;
                 var panelHeight = barHeight * roomInfo.Stats.Count + margin * (roomInfo.Stats.Count + 1);
                 
-                var roleLabel = roomInfo.Role.LabelCap;
+                var roleLabel = roomInfo.RoomName;
 
                 var roleLabelHeight = 0f;
                 if (showRoomRoles)

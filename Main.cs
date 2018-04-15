@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using HugsLib.Settings;
+﻿using HugsLib.Settings;
 using HugsLib.Utils;
 using RimWorld;
 using RimWorld.Planet;

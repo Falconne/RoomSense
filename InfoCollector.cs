@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using RimWorld;
-using UnityEngine;
 using Verse;
 
 namespace RoomSense
@@ -21,16 +21,16 @@ namespace RoomSense
         public readonly List<RoomStat> Stats;
         public readonly IntVec3 PanelCellTopLeft;
         public readonly int MaxStatSize;
-        public readonly RoomRoleDef Role;
+        public readonly string RoomName;
 
         private RoomStat _primaryStat = null;
 
-        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, RoomRoleDef role)
+        public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, string roomName)
         {
             Stats = stats;
             PanelCellTopLeft = panelCellTopLeft;
             MaxStatSize = maxStatSize;
-            Role = role;
+            RoomName = roomName;
         }
 
         public RoomStat GetPrimaryStat()
@@ -72,12 +72,17 @@ namespace RoomSense
         public int MaxStatSize { get; private set; }
 
         private bool _infoChanged = false;
+        private MethodInfo _roomLabelGetter;
 
         public InfoCollector()
         {
             RelevantRooms = new Dictionary<Room, RoomInfo>();
             MaxStatCount = 0;
             MaxStatSize = 0;
+     
+            var envInspector = GenTypes.GetTypeInAnyAssembly("EnvironmentInspectDrawer");
+            _roomLabelGetter =
+                envInspector?.GetMethod("GetRoomRoleLabel", BindingFlags.Static | BindingFlags.NonPublic);
         }
 
         public bool IsValid()
@@ -125,7 +130,7 @@ namespace RoomSense
                     stats,
                     GetPanelTopLeftCornerForRoom(room, map),
                     stats.Max(s => s.MaxLevel),
-                    room.Role
+                    (string) _roomLabelGetter?.Invoke(null, new object[] {room}) ?? room.Role.LabelCap
                 );
 
                 RelevantRooms[room] = roomInfo;
