@@ -27,7 +27,7 @@ namespace RoomSense
             _statToIconMap[RoomStatDefOf.Cleanliness] = Resources.Cleanliness;
         }
 
-        public void OnGUI(InfoCollector infoCollector, float opacity)
+        public void OnGUI(InfoCollector infoCollector, float opacity, bool showRoomRoles)
         {
             if (!infoCollector.IsValid())
                 return;
@@ -49,8 +49,18 @@ namespace RoomSense
                 if (map.fogGrid.IsFogged(roomInfo.PanelCellTopLeft))
                     continue;
 
+
                 var panelLength = barLength * roomInfo.MaxStatSize + margin * 3 + iconSize;
                 var panelHeight = barHeight * roomInfo.Stats.Count + margin * (roomInfo.Stats.Count + 1);
+                
+                var roleLabel = roomInfo.Role.LabelCap;
+
+                var roleLabelHeight = 0f;
+                if (showRoomRoles)
+                {
+                    roleLabelHeight = Text.CalcSize(roleLabel).y;
+                    panelHeight += roleLabelHeight + margin;
+                }
 
                 var panelSize = new Vector2(panelLength, panelHeight);
 
@@ -61,8 +71,16 @@ namespace RoomSense
                 Widgets.DrawBoxSolid(panelRect, panelColor);
                 Widgets.DrawBox(panelRect);
 
+                if (showRoomRoles)
+                {
+                    var roomRoleLabelRect = new Rect(drawTopLeft.x + margin, drawTopLeft.y + margin, 
+                        panelSize.x - margin, panelSize.y - margin);
+                    Text.Font = GameFont.Tiny;
+                    Widgets.Label(roomRoleLabelRect, roleLabel);
+                }
+
                 var iconRectLeft = drawTopLeft.x + margin;
-                var meterDrawY = drawTopLeft.y + margin;
+                var meterDrawY = drawTopLeft.y + margin + roleLabelHeight;
                 var tooltipRows = new List<InfoRow>();
                 var showTooltip = !Find.PlaySettings.showEnvironment;
                 foreach (var infoStat in roomInfo.Stats)
@@ -119,7 +137,7 @@ namespace RoomSense
                     foreach (var row in tooltipRows)
                     {
                         ref var value = ref row.Columns[i];
-                        while (maxWidth - Text.CalcSize(value).x > 0.5)
+                        while (maxWidth - Text.CalcSize(value).x > 0.1)
                         {
                             value += " ";
                         }
@@ -127,7 +145,7 @@ namespace RoomSense
                 }
 
                 var tooltip = new StringBuilder();
-                tooltip.Append(roomInfo.Role.LabelCap);
+                tooltip.Append(roleLabel);
                 tooltip.AppendLine();
                 tooltip.AppendLine();
                 foreach (var row in tooltipRows)

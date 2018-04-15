@@ -33,6 +33,8 @@ namespace RoomSense
 
         private SettingHandle<bool> _showHeatMap;
 
+        private SettingHandle<bool> _showRoomLabels;
+
         private float _graphOpacityAsFloat;
 
         private bool _firstRun = true;
@@ -101,7 +103,7 @@ namespace RoomSense
                 _firstRun = false;
                 _graphOpacityAsFloat = _graphOpacity / 100f;
             }
-            _graphOverlay.OnGUI(_infoCollector, _graphOpacityAsFloat);
+            _graphOverlay.OnGUI(_infoCollector, _graphOpacityAsFloat, _showRoomLabels);
         }
 
         public override void WorldLoaded()
@@ -136,6 +138,10 @@ namespace RoomSense
             _updateDelay = Settings.GetHandle("updateDelay", "FALCRS.UpdateDelay".Translate(),
                 "FALCRS.UpdateDelayDesc".Translate(),
                 100, Validators.IntRangeValidator(1, 9999));
+
+            _showRoomLabels = Settings.GetHandle(
+                "showRoomLabels", "FALCRS.ShowRoomLabels".Translate(),
+                "FALCRS.ShowRoomLabelsDesc".Translate(), true);
 
             _updateDelay.OnValueChanged = val => _infoCollector.Reset();
         }

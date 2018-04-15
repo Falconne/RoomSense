@@ -16,4 +16,7 @@
 
     <FALCRS.ShowHeatMap>Show stat heat map</FALCRS.ShowHeatMap>
     <FALCRS.ShowHeatMapDesc>Show coloured heat map overlay based on primary stat, when tool is enabled</FALCRS.ShowHeatMapDesc>
+
+    <FALCRS.ShowRoomLabels>Show room role labels</FALCRS.ShowRoomLabels>
+    <FALCRS.ShowRoomLabelsDesc>Display room role (e.g. bedroom, dining room) in overlay panels</FALCRS.ShowRoomLabelsDesc>
 </LanguageData>
