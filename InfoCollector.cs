@@ -50,10 +50,10 @@ namespace RoomSense
 
             // No obvious primary stat.
             // Create an average of the stats to serve as primary, with a resolution of 12.
-            var averageOfStatFractions = Stats.Average(s => (float) s.CurrentLevel / s.MaxLevel);
+            var averageOfStatFractions = Stats.Average(s => (float)s.CurrentLevel / s.MaxLevel);
             _primaryStat = new RoomStat()
             {
-                CurrentLevel = (int) averageOfStatFractions * 12,
+                CurrentLevel = (int)averageOfStatFractions * 12,
                 MaxLevel = 12
             };
 
@@ -79,7 +79,7 @@ namespace RoomSense
             RelevantRooms = new Dictionary<Room, RoomInfo>();
             MaxStatCount = 0;
             MaxStatSize = 0;
-     
+
             var envInspector = GenTypes.GetTypeInAnyAssembly("EnvironmentInspectDrawer");
             _roomLabelGetter =
                 envInspector?.GetMethod("GetRoomRoleLabel", BindingFlags.Static | BindingFlags.NonPublic);
@@ -130,7 +130,7 @@ namespace RoomSense
                     stats,
                     GetPanelTopLeftCornerForRoom(room, map),
                     stats.Max(s => s.MaxLevel),
-                    (string) _roomLabelGetter?.Invoke(null, new object[] {room}) ?? room.Role.LabelCap
+                    (string)_roomLabelGetter?.Invoke(null, new object[] { room }) ?? room.Role.LabelCap
                 );
 
                 RelevantRooms[room] = roomInfo;
@@ -148,10 +148,7 @@ namespace RoomSense
             var stats = new List<RoomStat>();
             foreach (var statDef in DefDatabase<RoomStatDef>.AllDefsListForReading)
             {
-                if (statDef.isHidden)
-                    continue;
-
-                if (!room.Role.IsStatRelated(statDef))
+                if (!IsStatValidForRoom(statDef, room))
                     continue;
 
                 var stat = room.GetStat(statDef);
@@ -175,6 +172,17 @@ namespace RoomSense
                 MaxStatCount = stats.Count;
 
             return stats;
+        }
+
+        private bool IsStatValidForRoom(RoomStatDef statDef, Room room)
+        {
+            if (statDef.isHidden)
+                return false;
+
+            if (statDef == RoomStatDefOf.Cleanliness && room.Role.Worker is RoomRoleWorker_Kitchen)
+                return true;
+
+            return room.Role.IsStatRelated(statDef);
         }
 
         private IntVec3 GetPanelTopLeftCornerForRoom(Room room, Map map)
