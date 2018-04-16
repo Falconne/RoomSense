@@ -57,6 +57,7 @@ namespace RoomSense
                 var roleLabelHeight = 0f;
                 if (showRoomRoles)
                 {
+                    Text.Font = GameFont.Tiny;
                     roleLabelHeight = Text.CalcSize(roleLabel).y;
                     panelHeight += roleLabelHeight + margin;
                 }
@@ -74,7 +75,6 @@ namespace RoomSense
                 {
                     var roomRoleLabelRect = new Rect(drawTopLeft.x + margin, drawTopLeft.y + margin, 
                         panelSize.x - margin, panelSize.y - margin);
-                    Text.Font = GameFont.Tiny;
                     Widgets.Label(roomRoleLabelRect, roleLabel);
                 }
 
