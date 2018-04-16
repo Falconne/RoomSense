@@ -130,26 +130,14 @@ namespace RoomSense
                 if (!showTooltip)
                     continue;
 
-                for (var i = 0; i < 2; i++)
-                {
-                    var maxWidth = tooltipRows.Max(row => Text.CalcSize(row.Columns[i]).x);
-                    foreach (var row in tooltipRows)
-                    {
-                        ref var value = ref row.Columns[i];
-                        while (maxWidth - Text.CalcSize(value).x > 0.1)
-                        {
-                            value += " ";
-                        }
-                    }
-                }
-
                 var tooltip = new StringBuilder();
                 tooltip.Append(roleLabel);
                 tooltip.AppendLine();
                 tooltip.AppendLine();
                 foreach (var row in tooltipRows)
                 {
-                    tooltip.Append($"{row.Columns[0]}: {row.Columns[1]}  {row.Columns[2]}");
+                    tooltip.Append($"{row.Columns[0]}:  [{row.Columns[1]}]  ({row.Columns[2]})");
+                    tooltip.AppendLine();
                     tooltip.AppendLine();
                 }
 
