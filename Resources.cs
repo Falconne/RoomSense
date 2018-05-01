@@ -12,5 +12,7 @@ namespace RoomSense
         public static Texture2D Beauty = ContentFinder<Texture2D>.Get("Beauty");
         public static Texture2D Cleanliness = ContentFinder<Texture2D>.Get("Cleanliness");
         public static Texture2D GraphToggle = ContentFinder<Texture2D>.Get("GraphToggle");
+
+        public static Texture2D Font = ContentFinder<Texture2D>.Get("AnonPro");
     }
 }

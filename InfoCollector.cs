@@ -185,7 +185,7 @@ namespace RoomSense
             return room.Role.IsStatRelated(statDef);
         }
 
-        private IntVec3 GetPanelTopLeftCornerForRoom(Room room, Map map)
+        public static IntVec3 GetPanelTopLeftCornerForRoom(Room room, Map map)
         {
             var bestCell = room.BorderCells.First();
             foreach (var cell in room.BorderCells)
@@ -204,7 +204,7 @@ namespace RoomSense
         }
 
         // Filter for indoor rooms with a role
-        private static Room GetRoomContainingBuildingIfRelevant(Building building, Map map)
+        public static Room GetRoomContainingBuildingIfRelevant(Building building, Map map)
         {
             if (building.Faction != Faction.OfPlayer)
                 return null;

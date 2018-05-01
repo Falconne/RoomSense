@@ -54,6 +54,7 @@
     <Compile Include="PlaySettings_Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
+    <Compile Include="SectionLayer_DrawLayer_Patch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
