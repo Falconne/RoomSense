@@ -11,7 +11,7 @@ namespace RoomSense
     [HarmonyPatch(typeof(DynamicDrawManager), "DrawDynamicThings")]
     public class SectionLayer_DrawLayer_Patch
     {
-        static void Postfix(ref DynamicDrawManager __instance)
+        static bool Prefix(ref DynamicDrawManager __instance)
         {
             var map = Find.VisibleMap;
             var color = Color.white;
@@ -35,6 +35,8 @@ namespace RoomSense
 
                 Graphics.DrawMesh(MeshPool.plane10, matrix, mat, 0);
             }
+
+            return true;
         }
     }
 
