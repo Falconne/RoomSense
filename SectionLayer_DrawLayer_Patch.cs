@@ -8,15 +8,9 @@ using Verse;
 
 namespace RoomSense
 {
-    //[HarmonyPatch(typeof(SectionLayer), "DrawLayer")]
     [HarmonyPatch(typeof(DynamicDrawManager), "DrawDynamicThings")]
     public class SectionLayer_DrawLayer_Patch
     {
-        private static readonly FieldInfo _sectionGetter = typeof(SectionLayer).GetField("section",
-            BindingFlags.NonPublic | BindingFlags.Instance);
-
-        private static Type _sectionLayerTerrainType;
-
         static void Postfix(ref DynamicDrawManager __instance)
         {
             var map = Find.VisibleMap;
