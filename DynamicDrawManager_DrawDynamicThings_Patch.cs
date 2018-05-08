@@ -9,7 +9,7 @@ using Verse;
 namespace RoomSense
 {
     [HarmonyPatch(typeof(DynamicDrawManager), "DrawDynamicThings")]
-    public class SectionLayer_DrawLayer_Patch
+    public class DynamicDrawManager_DrawDynamicThings_Patch
     {
         static bool Prefix(ref DynamicDrawManager __instance)
         {
@@ -26,8 +26,8 @@ namespace RoomSense
                     continue;
 
                 var topLeft = room.BorderCells.First();
-                Vector3 s = new Vector3(.5f, 1f, .5f);
-                Matrix4x4 matrix = default(Matrix4x4);
+                var s = new Vector3(.5f, 1f, .5f);
+                Matrix4x4 matrix = default;
                 var pos = sectionCell.ToVector3();
                 pos.x -= .5f;
                 pos.z -= .5f;
