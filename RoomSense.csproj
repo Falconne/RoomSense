@@ -70,6 +70,7 @@
     <Content Include="dist\RoomSense\Languages\English\Keyed\FALCRS_LanguageData.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="dist\RoomSense\Textures\AnonPro.png" />
     <Content Include="dist\RoomSense\Textures\Beauty.png" />
     <Content Include="dist\RoomSense\Textures\Cleanliness.png" />
     <Content Include="dist\RoomSense\Textures\GraphToggle.png" />

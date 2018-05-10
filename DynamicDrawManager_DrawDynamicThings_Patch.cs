@@ -19,7 +19,8 @@ namespace RoomSense
             var color = Color.white;
             color.a = 0.33f;
 
-            var mat = MaterialPool.MatFrom(Resources.Beauty, ShaderDatabase.Transparent, color);
+            //var mat = MaterialPool.MatFrom(Resources.Beauty, ShaderDatabase.Transparent, color);
+            var mat = MaterialPool.MatFrom(Resources.Font, ShaderDatabase.Transparent, color);
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
             foreach (IntVec3 sectionCell in currentViewRect)
             {
@@ -60,8 +61,8 @@ namespace RoomSense
             array[2] = new Vector3(0.5f * size.x, 0f, 0.5f * size.y);
             array[3] = new Vector3(0.5f * size.x, 0f, -0.5f * size.y);
 
-            array2[0] = new Vector2(1f, 0f);
-            array2[1] = new Vector2(1f, 1f);
+            array2[0] = new Vector2(0.015f, 0f);
+            array2[1] = new Vector2(0.015f, 1f);
             array2[2] = new Vector2(0f, 1f);
             array2[3] = new Vector2(0f, 0f);
 
