@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontHandler.cs" />
     <Compile Include="HeatMap.cs" />
     <Compile Include="InfoCollector.cs" />
     <Compile Include="Main.cs" />
