@@ -1,18 +1,44 @@
-﻿namespace RoomSense
+﻿using System.Collections.Generic;
+
+namespace RoomSense
 {
+    public struct CharBoundsInTexture
+    {
+        public float Left, Right;
+    }
+
     public class FontHandler
     {
-        private static float CharWidthAsTexturePortion = -1f;
+        private static float _charWidthAsTexturePortion = -1f;
 
         public static bool IsFontLoaded()
         {
             if (Resources.Font == null)
                 return false;
 
-            if (CharWidthAsTexturePortion < 0f)
-                CharWidthAsTexturePortion =  15f / Resources.Font.width;
+            if (_charWidthAsTexturePortion < 0f)
+                _charWidthAsTexturePortion =  15f / Resources.Font.width;
 
             return true;
+        }
+
+        public IEnumerable<CharBoundsInTexture> GetBoundsInTextureFor(string text)
+        {
+            foreach (char c in text)
+            {
+                yield return GetCharBoundsInTextureFor(c);
+            }
+        }
+
+        private CharBoundsInTexture GetCharBoundsInTextureFor(char c)
+        {
+            var index = GetIndexInFontForChar(c);
+            var left = index * _charWidthAsTexturePortion;
+            return new CharBoundsInTexture()
+            {
+                Left = left,
+                Right = left + _charWidthAsTexturePortion
+            };
         }
 
         private int GetIndexInFontForChar(char c)
@@ -22,7 +48,7 @@
                 return 0;
 
             if (asciiVal < 97)
-                return asciiVal - 97;
+                return asciiVal - 32;
             
             // Convert lower case to upper
             if (asciiVal < 123)
