@@ -22,7 +22,9 @@ namespace RoomSense
 
         public override string ModIdentifier => "RoomSense";
 
-        public bool ShowOverlay = false;
+        public bool ShowOverlay;
+
+        public readonly RoomTextHandler RoomTextHandler = new RoomTextHandler();
 
         private SettingHandle<int> _graphOpacity;
 
