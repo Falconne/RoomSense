@@ -9,9 +9,9 @@ namespace RoomSense
 
     public class FontHandler
     {
-        private static float _charWidthAsTexturePortion = -1f;
+        private float _charWidthAsTexturePortion = -1f;
 
-        public static bool IsFontLoaded()
+        public bool IsFontLoaded()
         {
             if (Resources.Font == null)
                 return false;
