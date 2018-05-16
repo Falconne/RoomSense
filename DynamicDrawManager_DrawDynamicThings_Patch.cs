@@ -29,7 +29,7 @@ namespace RoomSense
                 if (_testMesh == null)
                     CreateTestMesh();
 
-                var s = new Vector3(.5f, 1f, .5f);
+                var s = new Vector3(1f, 1f, 1f);
                 Matrix4x4 matrix = default;
                 var pos = sectionCell.ToVector3();
                 pos.x -= .5f;
@@ -37,6 +37,7 @@ namespace RoomSense
                 matrix.SetTRS(pos, Quaternion.identity, s);
 
                 Graphics.DrawMesh(_testMesh, matrix, mat, 0);
+                //Graphics.DrawMesh(_testMesh, pos, Quaternion.identity, mat, 0);
             }
 
             return true;
@@ -58,10 +59,10 @@ namespace RoomSense
             array[2] = new Vector3(0.5f * size.x, 0f, 0.5f * size.y);
             array[3] = new Vector3(0.5f * size.x, 0f, -0.5f * size.y);
 
-            array2[0] = new Vector2(0.015f, 0f);
-            array2[1] = new Vector2(0.015f, 1f);
-            array2[2] = new Vector2(0f, 1f);
-            array2[3] = new Vector2(0f, 0f);
+            array2[0] = new Vector2(0.030f, 0f);
+            array2[1] = new Vector2(0.030f, 1f);
+            array2[2] = new Vector2(0.015f, 1f);
+            array2[3] = new Vector2(0.015f, 0f);
 
             array3[0] = 0;
             array3[1] = 1;
