@@ -56,8 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="DynamicDrawManager_DrawDynamicThings_Patch.cs" />
-    <Compile Include="RoomText\LabelPlacementCalculator.cs" />
-    <Compile Include="RoomText\RoomTextHandler.cs" />
+    <Compile Include="RoomText\LabelPlacementHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
