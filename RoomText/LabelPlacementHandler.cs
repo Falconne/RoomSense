@@ -1,6 +1,11 @@
 ﻿namespace RoomSense
 {
-    public class RoomTextHandler
+    class Label
+    {
+        //Vector
+    }
+
+    public class LabelPlacementHandler
     {
         private FontHandler _fontHandler;
 

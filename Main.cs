@@ -24,7 +24,7 @@ namespace RoomSense
 
         public bool ShowOverlay;
 
-        public readonly RoomTextHandler RoomTextHandler = new RoomTextHandler();
+        public readonly LabelPlacementHandler LabelPlacementHandler = new LabelPlacementHandler();
 
         private SettingHandle<int> _graphOpacity;
 
