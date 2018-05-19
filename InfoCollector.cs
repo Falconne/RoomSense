@@ -23,7 +23,7 @@ namespace RoomSense
         public readonly int MaxStatSize;
         public readonly string RoomName;
 
-        private RoomStat _primaryStat = null;
+        private RoomStat _primaryStat;
 
         public RoomInfo(List<RoomStat> stats, IntVec3 panelCellTopLeft, int maxStatSize, string roomName)
         {
