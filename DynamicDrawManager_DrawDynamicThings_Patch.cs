@@ -16,7 +16,6 @@ namespace RoomSense
             var color = Color.white;
             color.a = 0.33f;
 
-            //var mat = MaterialPool.MatFrom(Resources.Beauty, ShaderDatabase.Transparent, color);
             var mat = MaterialPool.MatFrom(Resources.Font, ShaderDatabase.Transparent, color);
             CellRect currentViewRect = Find.CameraDriver.CurrentViewRect;
             foreach (IntVec3 sectionCell in currentViewRect)
@@ -37,7 +36,6 @@ namespace RoomSense
                 matrix.SetTRS(pos, Quaternion.identity, s);
 
                 Graphics.DrawMesh(_testMesh, matrix, mat, 0);
-                //Graphics.DrawMesh(_testMesh, pos, Quaternion.identity, mat, 0);
             }
 
             return true;
