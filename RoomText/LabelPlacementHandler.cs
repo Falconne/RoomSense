@@ -54,5 +54,47 @@ namespace RoomSense
             _nextUpdateTick = tick + 200;
 
         }
+
+        private Mesh CreateMeshFor(string label)
+        {
+            Vector3[] array = new Vector3[4];
+            Vector2[] array2 = new Vector2[4];
+            var size = new Vector2
+            {
+                x = 0.5f,
+                y = 1f
+            };
+
+            int[] array3 = new int[6];
+            array[0] = new Vector3(-0.5f * size.x, 0f, -0.5f * size.y);
+            array[1] = new Vector3(-0.5f * size.x, 0f, 0.5f * size.y);
+            array[2] = new Vector3(0.5f * size.x, 0f, 0.5f * size.y);
+            array[3] = new Vector3(0.5f * size.x, 0f, -0.5f * size.y);
+
+            array2[0] = new Vector2(0.030f, 0f);
+            array2[1] = new Vector2(0.030f, 1f);
+            array2[2] = new Vector2(0.015f, 1f);
+            array2[3] = new Vector2(0.015f, 0f);
+
+            array3[0] = 0;
+            array3[1] = 1;
+            array3[2] = 2;
+            array3[3] = 0;
+            array3[4] = 2;
+            array3[5] = 3;
+            var mesh = new Mesh
+            {
+                name = "NewPlaneMesh()",
+                vertices = array,
+                uv = array2
+            };
+            mesh.SetTriangles(array3, 0);
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+
+            return mesh;
+        }
+
+
     }
 }
