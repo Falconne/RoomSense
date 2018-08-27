@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Room Sense</name>
+  <author>Falconne</author>
+  <description>Toggleable panels to show relevant room stats, such as beauty, cleanliness, etc, over appropriate rooms using graphical meters and optionally a coloured overlay.</description>
+  <targetVersion>0.18.1722</targetVersion>
+</ModMetaData>

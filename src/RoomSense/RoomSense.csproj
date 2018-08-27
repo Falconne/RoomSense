@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D00DDFC6-2CA9-4EC3-8CD6-5A74ED717420}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RoomSense</RootNamespace>
+    <AssemblyName>RoomSense</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="%24HugsLibChecker, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnlimitedHugs.Rimworld.HugsLibChecker.4.0.0\lib\net35\$HugsLibChecker.dll</HintPath>
+    </Reference>
+    <Reference Include="0Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnlimitedHugs.Rimworld.HugsLib.4.1.1\lib\net35\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\ThirdParty\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="HugsLib, Version=0.18.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnlimitedHugs.Rimworld.HugsLib.4.1.1\lib\net35\HugsLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\ThirdParty\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HeatMap.cs" />
+    <Compile Include="InfoCollector.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="GraphOverlay.cs" />
+    <Compile Include="MapInterface_Patch.cs" />
+    <Compile Include="PlaySettings_Patch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\mod-structure\About\About.xml">
+      <Link>mod-structure\About\About.xml</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\About\Preview.png">
+      <Link>mod-structure\About\Preview.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\About\PublishedFileId.txt">
+      <Link>mod-structure\About\PublishedFileId.txt</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\About\Version.xml">
+      <Link>mod-structure\About\Version.xml</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Defs\KeyBindingCategoryDefs\KeyBindingCategories.xml">
+      <Link>mod-structure\Defs\KeyBindingCategoryDefs\KeyBindingCategories.xml</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Defs\KeyBindings.xml">
+      <Link>mod-structure\Defs\KeyBindings.xml</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Languages\English\Keyed\FALCRS_LanguageData.xml">
+      <Link>mod-structure\Languages\English\Keyed\FALCRS_LanguageData.xml</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\Beauty.png">
+      <Link>mod-structure\Textures\Beauty.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\Cleanliness.png">
+      <Link>mod-structure\Textures\Cleanliness.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\GraphToggle.png">
+      <Link>mod-structure\Textures\GraphToggle.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\Impressiveness.png">
+      <Link>mod-structure\Textures\Impressiveness.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\Space.png">
+      <Link>mod-structure\Textures\Space.png</Link>
+    </Content>
+    <Content Include="..\..\mod-structure\Textures\Wealth.png">
+      <Link>mod-structure\Textures\Wealth.png</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell.exe -EP Unrestricted $(ProjectDir)..\..\build.ps1 doPreBuild</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>powershell.exe -EP Unrestricted $(ProjectDir)..\..\build.ps1 doPostBuild</PostBuildEvent>
+  </PropertyGroup>
+</Project>
