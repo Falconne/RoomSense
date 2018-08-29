@@ -11,7 +11,7 @@ namespace RoomSense
         [HarmonyPostfix]
         static void Postfix()
         {
-            if (Find.VisibleMap == null || WorldRendererUtility.WorldRenderedNow)
+            if (Find.CurrentMap == null || WorldRendererUtility.WorldRenderedNow)
             {
                 return;
             }

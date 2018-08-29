@@ -13,7 +13,7 @@ namespace RoomSense
                 return;
 
             row?.ToggleableIcon(ref Main.Instance.ShowOverlay, Resources.GraphToggle,
-                "FALCRS.GraphToggle".Translate(), SoundDefOf.MouseoverToggle);
+                "FALCRS.GraphToggle".Translate(), SoundDefOf.Mouseover_ButtonToggle);
         }
     }
 }

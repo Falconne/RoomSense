@@ -110,7 +110,7 @@ namespace RoomSense
             _infoChanged = true;
             RelevantRooms.Clear();
 
-            var map = Find.VisibleMap;
+            var map = Find.CurrentMap;
             var listerBuildings = map.listerBuildings;
             // Room roles are defined by buildings, so only need to check rooms with buildings
             foreach (var building in listerBuildings.allBuildingsColonist)

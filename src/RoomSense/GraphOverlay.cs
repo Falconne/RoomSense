@@ -31,7 +31,7 @@ namespace RoomSense
             if (!infoCollector.IsValid())
                 return;
 
-            var map = Find.VisibleMap;
+            var map = Find.CurrentMap;
 
             const float barLength = 10f;
             const float barHeight = 8f;
@@ -81,7 +81,7 @@ namespace RoomSense
                 var iconRectLeft = drawTopLeft.x + margin;
                 var meterDrawY = drawTopLeft.y + margin + roleLabelHeight;
                 var tooltipRows = new List<InfoRow>();
-                var showTooltip = !Find.PlaySettings.showEnvironment;
+                var showTooltip = !Find.PlaySettings.showRoomStats;
                 foreach (var infoStat in roomInfo.Stats)
                 {
                     if (_statToIconMap.TryGetValue(infoStat.StatDef, out Texture2D icon))

@@ -60,7 +60,7 @@ namespace RoomSense
             {
                 if (_drawerInt == null)
                 {
-                    var map = Find.VisibleMap;
+                    var map = Find.CurrentMap;
                     _drawerInt = new CellBoolDrawer(this, map.Size.x, map.Size.z,
                         Main.Instance.GetHeatMapOpacity());
                 }
@@ -70,7 +70,7 @@ namespace RoomSense
 
         public bool GetCellBool(int index)
         {
-            var map = Find.VisibleMap;
+            var map = Find.CurrentMap;
             if (map.fogGrid.IsFogged(index))
                 return false;
 

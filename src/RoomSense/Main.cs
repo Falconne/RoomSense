@@ -71,7 +71,7 @@ namespace RoomSense
 
         public override void OnGUI()
         {
-            if (Current.ProgramState != ProgramState.Playing || Find.VisibleMap == null
+            if (Current.ProgramState != ProgramState.Playing || Find.CurrentMap == null
                 || WorldRendererUtility.WorldRenderedNow)
             {
                 return;
