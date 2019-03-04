@@ -53,7 +53,7 @@ namespace RoomSense
             var averageOfStatFractions = Stats.Average(s => (float)s.CurrentLevel / s.MaxLevel);
             _primaryStat = new RoomStat()
             {
-                CurrentLevel = (int)averageOfStatFractions * 12,
+                CurrentLevel = (int)(averageOfStatFractions * 12),
                 MaxLevel = 12
             };
 
