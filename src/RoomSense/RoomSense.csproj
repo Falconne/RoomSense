@@ -90,9 +90,6 @@
     <Reference Include="UnityEngine.DSPGraphModule">
       <HintPath>..\..\ThirdParty\UnityEngine.DSPGraphModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.FileSystemHttpModule">
-      <HintPath>..\..\ThirdParty\UnityEngine.FileSystemHttpModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
       <HintPath>..\..\ThirdParty\UnityEngine.GameCenterModule.dll</HintPath>
     </Reference>
